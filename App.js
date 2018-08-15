@@ -68,6 +68,12 @@ const Tabs = createMaterialTopTabNavigator({
 })*/
 
 export default class App extends React.Component {
+
+    componentWillMount(){
+        console.log("first")
+        console.log("second")
+    }
+
     render() {
         return (
             <Provider store={createStore(reducer)}>

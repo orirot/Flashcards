@@ -1,13 +1,17 @@
 import { AsyncStorage } from 'react-native'
-import { formatCalendarResults, CALENDAR_STORAGE_KEY } from './_calendar'
 
 export const DECKS_STORAGE_KEY = 'DECKS_STORAGE_KEY'
 
-export function getDecks () {
-    return AsyncStorage.getItem(DECKS_STORAGE_KEY)
+export function getDecksFromStorage () {
+    const decks =  AsyncStorage.getItem(DECKS_STORAGE_KEY)
+    if (!Object.keys(decks).length === 0){
+        return decks
+    }
+    AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(initialData))
+    return initialData
 }
 export function getDeck (id) {
-    const decks = getDecks()
+    const decks = getDecksFromStorage()
     return decks[id]
 }
 
@@ -29,5 +33,31 @@ export function addCardToDeck (title, card) {
                 [title] : {...data[title],
                 'questions' : [...data[title].questions, card]}
             }
-            AsyncStorage.setItem(CALENDAR_STORAGE_KEY, JSON.stringify(newData))
+            AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(newData))
         })}
+
+export const initialData = {
+    React: {
+        title: 'React',
+        questions: [
+            {
+                question: 'What is React?',
+                answer: 'A library for managing user interfaces'
+            },
+            {
+                question: 'Where do you make Ajax requests in React?',
+                answer: 'The componentDidMount lifecycle event'
+            }
+        ]
+    },
+    JavaScript: {
+        title: 'JavaScript',
+        questions: [
+            {
+                question: 'What is a closure?',
+                answer: 'The combination of a function and the lexical environment within which that function was declared.'
+            }
+        ]
+    }
+}
+
