@@ -3,10 +3,13 @@ import { View, StatusBar } from 'react-native'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
-import { createMaterialTopTabNavigator } from 'react-navigation'
+import { createMaterialTopTabNavigator, createStackNavigator } from 'react-navigation'
 import {black, purple, white} from './utils/colors'
 import { Constants } from 'expo'
 import DeckListView from "./components/DeckListView";
+import AddDeck from "./components/AddDeck";
+
+const store = createStore(reducer)
 
 function UdaciStatusBar ({backgroundColor, ...props}) {
     return (
@@ -24,7 +27,7 @@ const Tabs = createMaterialTopTabNavigator({
         },
     },
     NewDeck: {
-        screen: DeckListView, //TODO change to a New Deck Component
+        screen: AddDeck,
         navigationOptions: {
             tabBarLabel: 'New Deck',
         },
@@ -52,20 +55,14 @@ const Tabs = createMaterialTopTabNavigator({
     }
 })
 
-/*const MainNavigator = StackNavigator({
+const MainNavigator = createStackNavigator({
     Home: {
         screen: Tabs,
-    },
-    EntryDetail: {
-        screen: EntryDetail,
         navigationOptions: {
-            headerTintColor: black,
-            headerStyle: {
-                backgroundColor: white,
-            }
+            header: null,
         }
-    }
-})*/
+    },
+})
 
 export default class App extends React.Component {
 
@@ -74,12 +71,14 @@ export default class App extends React.Component {
         console.log("second")
     }
 
+
     render() {
+
         return (
-            <Provider store={createStore(reducer)}>
+            <Provider store={store}>
                 <View style={{flex: 1}}>
                     <UdaciStatusBar backgroundColor={purple} barStyle="light-content" />
-                    <Tabs />
+                    <MainNavigator/>
                 </View>
             </Provider>
         )
