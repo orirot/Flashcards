@@ -14,8 +14,8 @@ class DeckListSingleDeck extends Component {
                 )}
             >
                 <View key={title} style={styles.container}>
-                    <Text>{title}</Text>
-                    <Text>{questions.length} cards</Text>
+                    <Text style={styles.titleText}>{title}</Text>
+                    <Text style={styles.text}>{questions.length} cards</Text>
                 </View>
             </TouchableOpacity>
         )
@@ -28,6 +28,15 @@ const styles = StyleSheet.create({
         padding: 20,
         backgroundColor: white
     },
+    titleText: {
+        fontSize: 20,
+        fontWeight: 'bold',
+    },
+    text: {
+        fontSize: 15,
+        alignItems: 'center',
+        fontWeight: 'bold',
+    }
 })
 
 export default DeckListSingleDeck
