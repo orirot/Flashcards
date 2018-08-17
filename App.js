@@ -6,8 +6,9 @@ import reducer from './reducers'
 import { createMaterialTopTabNavigator, createStackNavigator } from 'react-navigation'
 import {black, purple, white} from './utils/colors'
 import { Constants } from 'expo'
-import DeckListView from "./components/DeckListView";
+import DeckList from "./components/DeckList";
 import AddDeck from "./components/AddDeck";
+import Deck from "./components/Deck";
 
 const store = createStore(reducer)
 
@@ -20,8 +21,8 @@ function UdaciStatusBar ({backgroundColor, ...props}) {
 }
 
 const Tabs = createMaterialTopTabNavigator({
-    DeckListView: {
-        screen: DeckListView,
+    DeckList: {
+        screen: DeckList,
         navigationOptions: {
             tabBarLabel: 'Decks',
         },
@@ -62,6 +63,15 @@ const MainNavigator = createStackNavigator({
             header: null,
         }
     },
+    Deck: {
+        screen: Deck,
+        navigationOptions: {
+            headerTintColor: black,
+            headerStyle: {
+                backgroundColor: white,
+            }
+        }
+    }
 })
 
 export default class App extends React.Component {

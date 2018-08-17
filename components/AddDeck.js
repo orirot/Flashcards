@@ -8,6 +8,7 @@ class AddDeck extends Component {
             <View>
                 <View>
                     <Text>AddDeck</Text>
+                    <Text>AddDeck</Text>
                 </View>
             </View>
         )

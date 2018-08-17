@@ -1,15 +1,36 @@
-import { AsyncStorage } from 'react-native'
+import { AsyncStorage } from 'react-native';
 
 export const DECKS_STORAGE_KEY = 'DECKS_STORAGE_KEY'
 
-export function getDecksFromStorage () {
-    const decks =  AsyncStorage.getItem(DECKS_STORAGE_KEY)
-    if (!Object.keys(decks).length === 0){
-        return decks
-    }
-    AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(initialData))
-    return initialData
+export const getDecksFromStorage = () => {
+    console.log("start get decks fr")
+    AsyncStorage.getItem(DECKS_STORAGE_KEY)
+        .then((decks) => {
+            if (decks) {
+                console.log("return decks" + decks)
+                return new Promise((resolve,reject) => {resolve(JSON.parse(decks))})
+            } else {
+                console.log("nothing came back from AsynStorage")
+                AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(initialData))
+                    .then(() => {
+                        return new Promise((resolve,reject) => {resolve(initialData)})
+                    })
+            }
+        })
 }
+
+// export const getDecksFromStorage = async () => {
+//     console.log("start get decks from local Storage")
+//     const decks = await AsyncStorage.getItem(DECKS_STORAGE_KEY)
+//     if (decks){
+//         console.log("return decks" + decks)
+//         return JSON.parse(decks)
+//     }
+//     await AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(initialData))
+//     console.log("return Initial" + initialData)
+//     return initialData
+// }
+
 export function getDeck (id) {
     const decks = getDecksFromStorage()
     return decks[id]
@@ -31,10 +52,11 @@ export function addCardToDeck (title, card) {
             const newData = {
                 ...data,
                 [title] : {...data[title],
-                'questions' : [...data[title].questions, card]}
+                    'questions' : [...data[title].questions, card]}
             }
             AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(newData))
         })}
+
 
 export const initialData = {
     React: {
@@ -60,4 +82,3 @@ export const initialData = {
         ]
     }
 }
-
