@@ -5,6 +5,13 @@ import {connect} from 'react-redux'
 
 class Deck extends Component {
 
+    static navigationOptions = ({ navigation }) => {
+        const { title } = navigation.state.params
+        return {
+            title
+        }
+    }
+
     render() {
         const {decks} = this.props
         const deck = {...decks[this.props.navigation.state.params.title]}
