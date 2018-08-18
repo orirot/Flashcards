@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {View, TouchableOpacity, Text, StyleSheet, FlatList } from 'react-native'
 import {connect} from 'react-redux'
 import {white} from "../utils/colors";
-import {DecksFromStorage, getinitialData, initialData} from "../utils/api";
+import {DecksFromStorage, getDecksFromStorage, getinitialData, initialData} from "../utils/api";
 import {getDecks} from "../actions/index";
 import {AppLoading} from 'expo'
 import DeckListSingleDeck from './DeckListSingleDeck'
@@ -23,16 +23,21 @@ class DeckList extends Component {
         const decks = initialData
         dispatch(getDecks(decks))
         this.setState(() => ({ready: true}))
-        // Object = getDecksFromStorage()
-        //     .then((decks) => this.dispatchGetDecks(decks))
-        //     .then(() => this.setState(() => ({ready: true})))
+        // getDecksFromStorage()
+        //     .then((decks) => {
+        //     console.log('scuccess', decks)
+        //     this.dispatchGetDecks(decks)
+            // })
+            // .catch(e => console.log('error', e))
+            // .then(() => this.setState(() => ({ready: true})))
+        // console.log('HERE')
     }
 
     renderItem = (deck) => {
         const _deck = deck.item
         return(
         <View key={_deck.title} style={[styles.container, styles.center]}>
-            <DeckListSingleDeck title={_deck.title} questions ={_deck.questions} navigate={this.props.navigation.navigate}/>
+            <DeckListSingleDeck title={_deck.title} questions ={_deck.questions} navigation={this.props.navigation}/>
             <View style={styles.line}/>
         </View>
         )

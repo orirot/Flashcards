@@ -8,7 +8,7 @@ class DeckListSingleDeck extends Component {
         const {title, questions} = this.props
         return (
             <TouchableOpacity
-                onPress={() => this.props.navigate(
+                onPress={() => this.props.navigation.navigate(
                     'Deck',
                     {title}
                 )}

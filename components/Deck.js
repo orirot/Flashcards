@@ -13,8 +13,17 @@ class Deck extends Component {
         }
     }
 
+    navigateTo = (target, title) => {
+        debugger
+        this.props.navigation.state(
+            target,
+            {title}
+        )
+    }
+
     render() {
         const {decks} = this.props
+        // console.log({this.props.navigation.state.params})
         const deck = {...decks[this.props.navigation.state.params.title]}
         const {questions, title} = {...deck}
         return (
@@ -23,10 +32,11 @@ class Deck extends Component {
                 <Text>{questions.length} cards</Text>
                 <View style={styles.center}>
                     <TouchableOpacity>
-                        <TextButton style = {{backgroundColor: white, borderWidth: 2}}>Add cxvCard</TextButton>
+                        <TextButton style={{backgroundColor: white, borderWidth: 2}}>Add Card</TextButton>
                     </TouchableOpacity>
                     <TouchableOpacity>
-                        <TextButton style = {{backgroundColor: black, color: white}}>Start Quiz</TextButton>
+                        <TextButton onPress={() => this.navigateTo("Quiz", title)}
+                                    style={{backgroundColor: black, color: white}}>Start Quiz</TextButton>
                     </TouchableOpacity>
                 </View>
             </View>

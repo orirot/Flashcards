@@ -3,9 +3,10 @@ import { AsyncStorage } from 'react-native';
 export const DECKS_STORAGE_KEY = 'DECKS_STORAGE_KEY'
 
 export const getDecksFromStorage = () => {
-    console.log("start get decks fr")
-    AsyncStorage.getItem(DECKS_STORAGE_KEY)
+    console.log("start get decks", AsyncStorage)
+    return AsyncStorage.getItem(DECKS_STORAGE_KEY)
         .then((decks) => {
+        console.log('SUCCESS')
             if (decks) {
                 console.log("return decks" + decks)
                 return new Promise((resolve,reject) => {resolve(JSON.parse(decks))})
@@ -16,6 +17,9 @@ export const getDecksFromStorage = () => {
                         return new Promise((resolve,reject) => {resolve(initialData)})
                     })
             }
+        })
+        .catch((error) => {
+        console.log(error)
         })
 }
 

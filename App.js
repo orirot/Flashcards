@@ -9,6 +9,7 @@ import { Constants } from 'expo'
 import DeckList from "./components/DeckList";
 import AddDeck from "./components/AddDeck";
 import Deck from "./components/Deck";
+import Quiz from "./components/Quiz";
 
 const store = createStore(reducer)
 
@@ -61,27 +62,26 @@ const MainNavigator = createStackNavigator({
         screen: Tabs,
         navigationOptions: {
             header: null,
-
         }
     },
     Deck: {
         screen: Deck,
-        navigationOptions: {
-            headerTintColor: white,
-            headerStyle: {
-                backgroundColor: black,
-            }
+    },
+    Quiz: {
+        screen: Quiz,
+        // navigationOptions: {
+        //     title: "Quiz"
+        // }
+    }},{
+    navigationOptions: {
+        headerTintColor: white,
+        headerStyle: {
+            backgroundColor: black,
         }
     }
 })
 
 export default class App extends React.Component {
-
-    componentWillMount(){
-        console.log("first")
-        console.log("second")
-    }
-
 
     render() {
 
