@@ -4,7 +4,7 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
 import { createMaterialTopTabNavigator, createStackNavigator } from 'react-navigation'
-import {black, purple, white} from './utils/colors'
+import {black, gray, white} from './utils/colors'
 import { Constants } from 'expo'
 import DeckList from "./components/DeckList";
 import AddDeck from "./components/AddDeck";
@@ -88,7 +88,7 @@ export default class App extends React.Component {
         return (
             <Provider store={store}>
                 <View style={{flex: 1}}>
-                    <UdaciStatusBar backgroundColor={purple} barStyle="light-content" />
+                    <UdaciStatusBar backgroundColor={gray} barStyle="light-content" />
                     <MainNavigator/>
                 </View>
             </Provider>
