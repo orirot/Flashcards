@@ -1,4 +1,5 @@
 export const GET_DECKS = 'GET_DECKS'
+export const SAVE_DECK_TITLE = 'SAVE_DECK_TITLE'
 
 export function getDecks (decks) {
     return {
@@ -7,10 +8,10 @@ export function getDecks (decks) {
     }
 }
 
-export function saveDeckTitle (title) {
+export function saveDeck (deck) {
     return {
         type: SAVE_DECK_TITLE,
-        title,
+        deck,
     }
 }
 
