@@ -43,7 +43,6 @@ class AddDeck extends Component {
         )
     }
 
-    //TODO add AsyncStorage
     saveDeck = (title) => {
         this.props.dispatch(
             saveDeck({
@@ -63,13 +62,13 @@ class AddDeck extends Component {
                     <Text style={styles.title}>What is the title of your new deck?</Text>
                     <TextInput
                         value={input}
-                        placeholder = 'Deck Title'
+                        defaultValue = 'Deck Title'
                         style={styles.input}
                         onChange={(e) => this.handleTextChange(e.nativeEvent.text)}
                     />
                     <TouchableOpacity>
                         <TextButton onPress={() => this.addNewDeck()}
-                                    style={{backgroundColor: black, color: white}}>Submit</TextButton>
+                                    style={{backgroundColor: black, color: white}}>Start Quiz</TextButton>
                     </TouchableOpacity>
                 </View>
             </KeyboardAvoidingView>
