@@ -1,4 +1,4 @@
-import {GET_DECKS, SAVE_DECK_TITLE} from "../actions/index";
+import {ADD_CARD_TO_DECK, GET_DECKS, SAVE_DECK_TITLE} from "../actions/index";
 
 function entries (state = {}, action) {
     switch (action.type) {
@@ -12,6 +12,13 @@ function entries (state = {}, action) {
                 ...state,
                 ...action.deck
             }
+        case ADD_CARD_TO_DECK:
+            const {title, card} = action
+        return {
+            ...state,
+            [title] : {...state[title],
+                'questions' : [...state[title].questions, card]}
+        }
         default :
             return state
     }

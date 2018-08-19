@@ -2,73 +2,64 @@ import React, {Component} from 'react'
 import {View, Text, StyleSheet, TextInput, KeyboardAvoidingView, TouchableOpacity, Alert} from 'react-native'
 import {black, white} from "../utils/colors";
 import TextButton from "./TextButton";
-import {saveDeck} from "../actions/index";
+import {addCardToDeck, saveDeck} from "../actions/index";
 import {connect} from 'react-redux'
 
-class AddDeck extends Component {
+class AddCard extends Component {
+
+    //TODO change from tab to stack navigation
 
     state = {
-        input: ""
+        question: "",
+        answer: "",
+        title: "React", //TODO change to get from navigation
     }
 
-    handleTextChange(input) {
+    handleTextChange(qa, text) {
         this.setState(() => ({
-            input
+            [qa]: text
         }))
     }
 
-    addNewDeck = (event) => {
-        const title = this.state.input
-        if (!this.titleAlreadyExists(title)) {
-            this.saveDeck(title)
-        } else {
-            this.titleExists(title)
+    //TODO add AsyncStorage
+    saveCard = () => {
+        card = this.createCard()
+        this.props.dispatch(
+            addCardToDeck(this.state.title, card)
+        )
+    }
+
+    createCard = () => {
+        const {question, answer} = this.state
+        return {
+            question,
+            answer
         }
     }
 
-    titleAlreadyExists = (title) => {
-        const {decks} = this.props
-        return decks.hasOwnProperty(title)
-    }
-
-    titleExists = (title) => {
-        const msg = "Title " + title + " already exists"
-        Alert.alert(
-            'Adding Deck Failed',
-            msg,
-            [
-                {text: 'OK', onPress: () => console.log('OK Pressed')},
-            ],
-            {cancelable: false}
-        )
-    }
-
-    saveDeck = (title) => {
-        this.props.dispatch(
-            saveDeck({
-                [title]: {
-                    'title': title,
-                    'questions': []
-                }
-            })
-        )
-    }
-
     render() {
-        const {input} = this.state
+        const {question, answer} = this.state
         return (
             <KeyboardAvoidingView behavior='padding' style={styles.container}>
                 <View style={styles.center}>
                     <Text style={styles.title}>What is the title of your new deck?</Text>
                     <TextInput
-                        value={input}
-                        defaultValue = 'Deck Title'
+                        value={question}
+                        placeholder = 'Question'
                         style={styles.input}
-                        onChange={(e) => this.handleTextChange(e.nativeEvent.text)}
+                        onChange={(e) => this.handleTextChange("question", e.nativeEvent.text)}
                     />
+
+                    <TextInput
+                        value={answer}
+                        placeholder = 'Answer'
+                        style={styles.input}
+                        onChange={(e) => this.handleTextChange("answer", e.nativeEvent.text)}
+                    />
+
                     <TouchableOpacity>
-                        <TextButton onPress={() => this.addNewDeck()}
-                                    style={{backgroundColor: black, color: white}}>Start Quiz</TextButton>
+                        <TextButton onPress={() => this.saveCard()}
+                                    style={{backgroundColor: black, color: white}}>Submit</TextButton>
                     </TouchableOpacity>
                 </View>
             </KeyboardAvoidingView>
@@ -109,4 +100,4 @@ function mapStateToProps(decks) {
     }
 }
 
-export default connect(mapStateToProps)(AddDeck)
+export default connect(mapStateToProps)(AddCard)

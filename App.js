@@ -10,6 +10,7 @@ import DeckList from "./components/DeckList";
 import AddDeck from "./components/AddDeck";
 import Deck from "./components/Deck";
 import Quiz from "./components/Quiz";
+import AddCard from "./components/AddCard";
 
 const store = createStore(reducer)
 
@@ -33,6 +34,14 @@ const Tabs = createMaterialTopTabNavigator({
         navigationOptions: {
             tabBarLabel: 'New Deck',
         },
+    },
+
+    //TODO Change from tab to a stack navigation
+    AddCard: {
+        screen: AddCard,
+        navigationOptions: {
+            tabBarLabel: 'Add Card'
+        }
     }
 }, {
     navigationOptions: {
