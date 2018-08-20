@@ -20,7 +20,7 @@ class DeckList extends Component {
     getDecksFromStorage = () => {
         getDecksFromAsyncStorage()
             .then((decks) => {
-                console.log('scuccess',decks)
+                // console.log('scuccess',decks)
                 this.dispatchGetDecks(decks)
             })
             .catch(e => console.log('error', e))

@@ -79,9 +79,9 @@ const MainNavigator = createStackNavigator({
     },
     Quiz: {
         screen: Quiz,
-        // navigationOptions: {
-        //     title: "Quiz"
-        // }
+        navigationOptions: {
+            title: "Quiz"
+        }
     }},{
     navigationOptions: {
         headerTintColor: white,

@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native'
+import {View, Text, StyleSheet, TouchableOpacity, Alert} from 'react-native'
 import {white, black} from "../utils/colors";
 import {connect} from 'react-redux'
 import TextButton from "./TextButton";
@@ -14,16 +14,15 @@ class Deck extends Component {
     }
 
     navigateTo = (target, title) => {
-        debugger
         this.props.navigation.state(
             target,
             {title}
         )
     }
 
+
     render() {
         const {decks} = this.props
-        // console.log({this.props.navigation.state.params})
         const deck = {...decks[this.props.navigation.state.params.title]}
         const {questions, title} = {...deck}
         return (
@@ -34,15 +33,18 @@ class Deck extends Component {
                     <TouchableOpacity>
                         <TextButton style={{backgroundColor: white, borderWidth: 2}}>Add Card</TextButton>
                     </TouchableOpacity>
+
                     <TouchableOpacity>
-                        <TextButton onPress={() => this.navigateTo("Quiz", title)}
-                                    style={{backgroundColor: black, color: white}}>Start Quiz</TextButton>
+                        <TextButton onPress={() => {
+                            this.navigateTo('Quiz', (title))
+                        }} style={{backgroundColor: black, color: white}}>Start Quizzz</TextButton>
                     </TouchableOpacity>
                 </View>
             </View>
         )
     }
 }
+
 
 const styles = StyleSheet.create({
     container: {

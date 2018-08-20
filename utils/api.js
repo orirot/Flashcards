@@ -11,12 +11,12 @@ export const initFirstData = () => {
 export const getDecksFromAsyncStorage = () => {
     return AsyncStorage.getItem(DECKS_STORAGE_KEY)
         .then((decks) => {
-        console.log('SUCCESS')
+        //console.log('SUCCESS')
             if (decks) {
-                console.log("return decks" + decks)
+                //console.log("return decks" + decks)
                 return new Promise((resolve,reject) => {resolve(JSON.parse(decks))})
             } else {
-                console.log("nothing came back from AsynStorage")
+                //console.log("nothing came back from AsynStorage")
                 AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(initialData))
                     .then(() => {
                         return new Promise((resolve,reject) => {resolve(initialData)})
@@ -24,7 +24,7 @@ export const getDecksFromAsyncStorage = () => {
             }
         })
         .catch((error) => {
-        console.log(error)
+        //console.log(error)
         })
 }
 

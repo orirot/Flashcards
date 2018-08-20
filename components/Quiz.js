@@ -4,25 +4,24 @@ import {white, red} from "../utils/colors";
 import {connect} from 'react-redux'
 import isEmpty from 'lodash/isEmpty';
 import QA from './QA'
-import { withNavigation } from 'react-navigation'
 
 class Quiz extends Component {
 
-    static navigationOptions = ({navigation}) => {
-        return {
-            title: "Quiz"
-        }
-    }
+    // static navigationOptions = ({navigation}) => {
+    //     return {
+    //         title: "Quiz"
+    //     }
+    // }
 
     state = {
         currentQuestion: 0,
         numberCorrectAns: 0,
     }
 
-    outOf = () => {
+    outOf = (questions) => {
         return (
             <View>
-                <Text>{state.currentQuestion +1}/{this.props.questions.length}</Text>
+                <Text>{this.state.currentQuestion +1}/{questions.length}</Text>
             </View>
         )
     }
@@ -32,12 +31,11 @@ class Quiz extends Component {
     )
 
     render() {
-        const {questions} = this.props
-
+        const {questions, title} = this.props
         if (!isEmpty(questions)) {
             return (
                 <View key={title} style={styles.container}>
-                    {this.outOf()}
+                    {this.outOf(questions)}
                     <View style={styles.center}>
                         <QA question={questions[0]}></QA>
                     </View>
@@ -71,14 +69,13 @@ const styles = StyleSheet.create({
     }
 })
 
-function mapStateToProps(decks) {
-    console.log("In Quiz")
-    console.log(this.props.navigation)
-    const {title} = this.props.navigation.state.params
+function mapStateToProps(decks, ownProps) {
+    const {title} = ownProps.navigation.state.params
     const deck = decks[title]
     return {
-        questions: deck.questions
+        questions: deck.questions,
+        title
     }
 }
 
-export default (connect(mapStateToProps)(Quiz))
+export default connect(mapStateToProps)(Quiz)
