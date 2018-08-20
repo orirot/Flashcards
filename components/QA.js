@@ -8,6 +8,12 @@ class QA extends Component {
         showingQuestion: false
     }
 
+    flipCard = () => {
+        this.setState(()=>({
+        showingQuestion: !this.state.showingQuestion
+        }))
+    }
+
     render () {
         const {question, answer} = this.props.question
     return (
@@ -17,7 +23,7 @@ class QA extends Component {
                 : <Text style={styles.content}>{answer}</Text>
             }
 
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=> this.flipCard()}>
                 {this.state.showingQuestion
                     ? <Text style={styles.goToAnswerQuestion}>Answer</Text>
                     : <Text style={styles.goToAnswerQuestion}>Question</Text>

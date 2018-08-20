@@ -14,7 +14,7 @@ class Deck extends Component {
     }
 
     navigateTo = (target, title) => {
-        this.props.navigation.state(
+        this.props.navigation.navigate(
             target,
             {title}
         )
@@ -35,9 +35,7 @@ class Deck extends Component {
                     </TouchableOpacity>
 
                     <TouchableOpacity>
-                        <TextButton onPress={() => {
-                            this.navigateTo('Quiz', (title))
-                        }} style={{backgroundColor: black, color: white}}>Start Quizzz</TextButton>
+                        <TextButton onPress={() => {this.navigateTo('Quiz', title)}} style={{backgroundColor: black, color: white}}>Start Quiz</TextButton>
                     </TouchableOpacity>
                 </View>
             </View>
