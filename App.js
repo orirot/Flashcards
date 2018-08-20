@@ -11,8 +11,9 @@ import AddDeck from "./components/AddDeck";
 import Deck from "./components/Deck";
 import Quiz from "./components/Quiz";
 import AddCard from "./components/AddCard";
+import middleware from './middleware'
 
-const store = createStore(reducer)
+const store = createStore(reducer,middleware)
 
 function UdaciStatusBar ({backgroundColor, ...props}) {
     return (

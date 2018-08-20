@@ -1,9 +1,14 @@
 import { AsyncStorage } from 'react-native';
+import {mergedStateAddCardToDeck} from "./helpers";
 
 export const DECKS_STORAGE_KEY = 'DECKS_STORAGE_KEY'
 
-export const getDecksFromStorage = () => {
-    console.log("start get decks", AsyncStorage)
+//TODO remove this init that actually resets the storage
+export const initFirstData = () => {
+    return AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(initialData))
+}
+
+export const getDecksFromAsyncStorage = () => {
     return AsyncStorage.getItem(DECKS_STORAGE_KEY)
         .then((decks) => {
         console.log('SUCCESS')
@@ -27,11 +32,11 @@ export const getDecksFromStorage = () => {
 //     console.log("start get decks from local Storage")
 //     const decks = await AsyncStorage.getItem(DECKS_STORAGE_KEY)
 //     if (decks){
-//         console.log("return decks" + decks)
+//         console.log("return deckss" + decks)
 //         return JSON.parse(decks)
 //     }
 //     await AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(initialData))
-//     console.log("return Initial" + initialData)
+//     console.log("return Initiall" + initialData)
 //     return initialData
 // }
 
@@ -53,11 +58,7 @@ export function addCardToDeck (title, card) {
     return AsyncStorage.getItem(DECKS_STORAGE_KEY)
         .then((results) => {
             const data = JSON.parse(results)
-            const newData = {
-                ...data,
-                [title] : {...data[title],
-                    'questions' : [...data[title].questions, card]}
-            }
+            const newData = mergedStateAddCardToDeck(data, title, card)
             AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(newData))
         })}
 
@@ -84,5 +85,5 @@ export const initialData = {
                 answer: 'The combination of a function and the lexical environment within which that function was declared.'
             }
         ]
-    }
+    },
 }

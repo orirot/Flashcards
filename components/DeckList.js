@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {View, TouchableOpacity, Text, StyleSheet, FlatList } from 'react-native'
 import {connect} from 'react-redux'
 import {white} from "../utils/colors";
-import {DecksFromStorage, getDecksFromStorage, getinitialData, initialData} from "../utils/api";
+import {getDecksFromAsyncStorage, initFirstData, initialData} from "../utils/api";
 import {getDecks} from "../actions/index";
 import {AppLoading} from 'expo'
 import DeckListSingleDeck from './DeckListSingleDeck'
@@ -16,21 +16,26 @@ class DeckList extends Component {
         this.props.dispatch(getDecks(decks))
     }
 
-    componentDidMount() {
-        const {dispatch} = this.props
 
+    getDecksFromStorage = () => {
+        getDecksFromAsyncStorage()
+            .then((decks) => {
+                console.log('scuccess',decks)
+                this.dispatchGetDecks(decks)
+            })
+            .catch(e => console.log('error', e))
+            .then(() => this.setState(() => ({ready: true})))
+
+    }
+
+    componentDidMount() {
+        //TODO remove the init data and just get from storage
+        initFirstData()
+            .then((this.getDecksFromStorage))
         //TODO change this to get real data and to remove the export of the initial Data from api class
-        const decks = initialData
-        dispatch(getDecks(decks))
-        this.setState(() => ({ready: true}))
-        // getDecksFromStorage()
-        //     .then((decks) => {
-        //     console.log('scuccess', decks)
-        //     this.dispatchGetDecks(decks)
-            // })
-            // .catch(e => console.log('error', e))
-            // .then(() => this.setState(() => ({ready: true})))
-        // console.log('HERE')
+        // const decks = initialData
+        // dispatch(getDecks(decks))
+        // this.setState(() => ({ready: true}))
     }
 
     renderItem = (deck) => {

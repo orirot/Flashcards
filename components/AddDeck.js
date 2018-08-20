@@ -2,8 +2,8 @@ import React, {Component} from 'react'
 import {View, Text, StyleSheet, TextInput, KeyboardAvoidingView, TouchableOpacity, Alert} from 'react-native'
 import {black, white} from "../utils/colors";
 import TextButton from "./TextButton";
-import {saveDeck} from "../actions/index";
 import {connect} from 'react-redux'
+import {handelSaveDeck} from "../actions/index";
 
 class AddDeck extends Component {
 
@@ -43,16 +43,8 @@ class AddDeck extends Component {
         )
     }
 
-    //TODO add AsyncStorage
     saveDeck = (title) => {
-        this.props.dispatch(
-            saveDeck({
-                [title]: {
-                    'title': title,
-                    'questions': []
-                }
-            })
-        )
+        this.props.dispatch(handelSaveDeck(title))
     }
 
     render() {
