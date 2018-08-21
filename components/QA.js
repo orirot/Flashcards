@@ -17,7 +17,7 @@ class QA extends Component {
     render () {
         const {question, answer} = this.props.question
     return (
-        <View>
+        <View style={styles.center}>
             {this.state.showingQuestion
                 ? <Text style={styles.content}>{question}</Text>
                 : <Text style={styles.content}>{answer}</Text>
@@ -40,8 +40,16 @@ const styles = StyleSheet.create({
     },
     goToAnswerQuestion: {
         color: red,
-        fontSize: 14
-    }
+        fontSize: 25,
+        borderWidth: 2
+    },
+    center: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: 30,
+        marginRight: 30,
+    },
 })
 
 export default QA
