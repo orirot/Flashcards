@@ -2,17 +2,15 @@ import React, {Component} from 'react'
 import {View, Text, StyleSheet, TextInput, KeyboardAvoidingView, TouchableOpacity, Alert} from 'react-native'
 import {black, white} from "../utils/colors";
 import TextButton from "./TextButton";
-import {addCardToDeck, saveDeck} from "../actions/index";
+import {addCardToDeck, handelAddCardToDeck, saveDeckTitle} from "../actions/index";
 import {connect} from 'react-redux'
+import {newCard} from "../utils/helpers";
 
 class AddCard extends Component {
 
-    //TODO change from tab to stack navigation
-
-    state = {
+     state = {
         question: "",
         answer: "",
-        title: "React", //TODO change to get from navigation
     }
 
     handleTextChange(qa, text) {
@@ -21,20 +19,11 @@ class AddCard extends Component {
         }))
     }
 
-    //TODO add AsyncStorage
     saveCard = () => {
-        card = this.createCard()
+        const card = newCard(this.state.question, this.state.answer)
         this.props.dispatch(
-            addCardToDeck(this.state.title, card)
+            handelAddCardToDeck(this.props.title, card)
         )
-    }
-
-    createCard = () => {
-        const {question, answer} = this.state
-        return {
-            question,
-            answer
-        }
     }
 
     render() {
@@ -94,9 +83,11 @@ const styles = StyleSheet.create({
 })
 
 
-function mapStateToProps(decks) {
+function mapStateToProps(decks, ownProps) {
+    const {title} = ownProps.navigation.state.params
     return {
         decks,
+        title
     }
 }
 

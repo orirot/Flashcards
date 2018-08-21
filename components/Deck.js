@@ -31,7 +31,7 @@ class Deck extends Component {
                 <Text>{questions.length} cards</Text>
                 <View style={styles.center}>
                     <TouchableOpacity>
-                        <TextButton style={{backgroundColor: white, borderWidth: 2}}>Add Card</TextButton>
+                        <TextButton onPress={() => {this.navigateTo('AddCard', title)}} style={{backgroundColor: white, borderWidth: 2}}>Add Card</TextButton>
                     </TouchableOpacity>
 
                     <TouchableOpacity>

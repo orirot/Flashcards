@@ -35,14 +35,6 @@ const Tabs = createMaterialTopTabNavigator({
         navigationOptions: {
             tabBarLabel: 'New Deck',
         },
-    },
-
-    //TODO Change from tab to a stack navigation
-    AddCard: {
-        screen: AddCard,
-        navigationOptions: {
-            tabBarLabel: 'Add Card'
-        }
     }
 }, {
     navigationOptions: {
@@ -76,6 +68,12 @@ const MainNavigator = createStackNavigator({
     },
     Deck: {
         screen: Deck,
+    },
+    AddCard: {
+        screen: AddCard,
+        navigationOptions: {
+            tabBarLabel: 'Add Card'
+        }
     },
     Quiz: {
         screen: Quiz,

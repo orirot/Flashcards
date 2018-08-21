@@ -4,27 +4,21 @@ import {red} from "../utils/colors";
 
 class QA extends Component {
 
-    state = {
-        showingQuestion: false
-    }
-
-    flipCard = () => {
-        this.setState(()=>({
-        showingQuestion: !this.state.showingQuestion
-        }))
-    }
-
     render () {
-        const {question, answer} = this.props.question
+        const {card, showingQuestion, flipCard} = this.props
+        console.log({card})
+        console.log({showingQuestion})
+        const {question, answer} = card
+
     return (
         <View style={styles.center}>
-            {this.state.showingQuestion
+            {showingQuestion
                 ? <Text style={styles.content}>{question}</Text>
                 : <Text style={styles.content}>{answer}</Text>
             }
 
-            <TouchableOpacity onPress={()=> this.flipCard()}>
-                {this.state.showingQuestion
+            <TouchableOpacity onPress={() =>flipCard()}>
+                {showingQuestion
                     ? <Text style={styles.goToAnswerQuestion}>Answer</Text>
                     : <Text style={styles.goToAnswerQuestion}>Question</Text>
                 }

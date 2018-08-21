@@ -2,11 +2,13 @@ import React from 'react'
 import { StyleSheet } from 'react-native'
 
 
-export const mergedStateAddCardToDeck = (state, title, card)=>{
+export const mergedStateAddCardToDeck = (state, title, card) => {
     return {
         ...state,
-        [title] : {...state[title],
-            'questions' : [...state[title].questions, card]}
+        [title]: {
+            ...state[title],
+            'questions': [...state[title].questions, card]
+        }
     }
 
 }
@@ -17,6 +19,13 @@ export const newDeck = (title) => {
             'title': title,
             'questions': []
         }
+    }
+}
+
+export const newCard = (question, answer) => {
+    return {
+        question,
+        answer
     }
 }
 

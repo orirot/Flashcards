@@ -1,4 +1,4 @@
-import {saveDeckTitle} from "../utils/api";
+import {addCardToDeckAsyncStorage, saveDeckTitleAsyncStorage} from "../utils/api";
 import {newDeck} from "../utils/helpers";
 
 export const GET_DECKS = 'GET_DECKS'
@@ -12,7 +12,7 @@ export function getDecks(decks) {
     }
 }
 
-export function saveDeck(deck) {
+export function saveDeckTitle(deck) {
     return {
         type: SAVE_DECK_TITLE,
         deck,
@@ -29,12 +29,24 @@ export function addCardToDeck(title, card) {
 
 export const handelSaveDeck = (title) => {
     return (dispatch) => {
-        return saveDeckTitle(title)
+        return saveDeckTitleAsyncStorage(title)
             .then(() => {
-                dispatch(saveDeck(newDeck(title)))
+                dispatch(saveDeckTitle(newDeck(title)))
             })
             .catch((e) => {
                 console.log('Error in handleSaveQuestion: ', e)
+            })
+    }
+}
+
+export const handelAddCardToDeck = (title, card) => {
+    return (dispatch) => {
+        return addCardToDeckAsyncStorage(title, card)
+            .then(() => {
+                dispatch(addCardToDeck(title, card))
+            })
+            .catch((e) => {
+                console.log('Error in handelAddCardToDeck: ', e)
             })
     }
 }

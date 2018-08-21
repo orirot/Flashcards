@@ -40,12 +40,12 @@ export const getDecksFromAsyncStorage = () => {
 //     return initialData
 // }
 
-export function getDeck (id) {
-    const decks = getDecksFromStorage()
-    return decks[id]
-}
+// export function getDeck (id) {
+//     const decks = getDecksFromStorage()
+//     return decks[id]
+// }
 
-export function saveDeckTitle (title) {
+export function saveDeckTitleAsyncStorage (title) {
     return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
         title : {
             'title' : title,
@@ -54,13 +54,14 @@ export function saveDeckTitle (title) {
     }))
 }
 
-export function addCardToDeck (title, card) {
+export function addCardToDeckAsyncStorage (title, card) {
     return AsyncStorage.getItem(DECKS_STORAGE_KEY)
         .then((results) => {
             const data = JSON.parse(results)
             const newData = mergedStateAddCardToDeck(data, title, card)
-            AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(newData))
-        })}
+           return AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(newData))
+        })
+}
 
 
 export const initialData = {

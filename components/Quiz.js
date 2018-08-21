@@ -11,6 +11,13 @@ class Quiz extends Component {
     state = {
         currentQuestion: 0,
         numberCorrectAns: 0,
+        showingQuestion: true
+    }
+
+    flipCard = () => {
+        this.setState(()=>({
+            showingQuestion: !this.state.showingQuestion
+        }))
     }
 
     answered = (correct)=>{
@@ -25,7 +32,8 @@ class Quiz extends Component {
     nextQuestion = (numCorrect) =>{
         this.setState(()=>({
             currentQuestion: this.state.currentQuestion +1,
-            numberCorrectAns: numCorrect
+            numberCorrectAns: numCorrect,
+            showingQuestion: true
         }))
     }
 
@@ -66,7 +74,7 @@ class Quiz extends Component {
                 <View key={title} style={styles.container}>
                     {this.outOf()}
                     <View style={styles.center}>
-                        <QA question={question}></QA>
+                        <QA card={question} showingQuestion={this.state.showingQuestion} flipCard={this.flipCard}></QA>
                         <TouchableOpacity>
                             <TextButton onPress={() => this.answered(true)}
                                         style={{backgroundColor: green, color: white}}>Correct</TextButton>
