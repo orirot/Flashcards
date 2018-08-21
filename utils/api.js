@@ -1,5 +1,5 @@
 import { AsyncStorage } from 'react-native';
-import {mergedStateAddCardToDeck} from "./helpers";
+import {mergedStateAddCardToDeck, newDeck} from "./helpers";
 
 export const DECKS_STORAGE_KEY = 'DECKS_STORAGE_KEY'
 
@@ -46,12 +46,7 @@ export const getDecksFromAsyncStorage = () => {
 // }
 
 export function saveDeckTitleAsyncStorage (title) {
-    return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
-        title : {
-            'title' : title,
-            'questions' : []
-        }
-    }))
+    return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify(newDeck(title)))
 }
 
 export function addCardToDeckAsyncStorage (title, card) {

@@ -72,7 +72,7 @@ const MainNavigator = createStackNavigator({
     AddCard: {
         screen: AddCard,
         navigationOptions: {
-            tabBarLabel: 'Add Card'
+            title: 'Add Card'
         }
     },
     Quiz: {

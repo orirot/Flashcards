@@ -31,7 +31,6 @@ class AddCard extends Component {
         return (
             <KeyboardAvoidingView behavior='padding' style={styles.container}>
                 <View style={styles.center}>
-                    <Text style={styles.title}>What is the title of your new deck?</Text>
                     <TextInput
                         value={question}
                         placeholder = 'Question'

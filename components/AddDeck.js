@@ -17,7 +17,7 @@ class AddDeck extends Component {
         }))
     }
 
-    addNewDeck = (event) => {
+    addNewDeck = () => {
         const title = this.state.input
         if (!this.titleAlreadyExists(title)) {
             this.saveDeck(title)
