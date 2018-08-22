@@ -1,4 +1,4 @@
-import {addCardToDeckAsyncStorage, saveDeckTitleAsyncStorage} from "../utils/api";
+import {addCardToDeckAsyncStorage, getDecksFromAsyncStorage, saveDeckTitleAsyncStorage} from "../utils/api";
 import {newDeck} from "../utils/helpers";
 
 export const GET_DECKS = 'GET_DECKS'
@@ -24,6 +24,22 @@ export function addCardToDeck(title, card) {
         type: ADD_CARD_TO_DECK,
         title,
         card
+    }
+}
+
+export const handleGetDecks = () => {
+    return (dispatch) => {
+        getDecksFromAsyncStorage()
+            .then((decks) => {
+                console.log('success', decks)
+                try {
+                    dispatch(getDecks(decks))
+                } catch (e) {
+                    console.log('failed on dispatch getDecks', e)
+                }
+            })
+            .catch(e => console.log('error', e))
+            .then(() => this.setState(() => ({ready: true})))
     }
 }
 

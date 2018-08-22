@@ -1,32 +1,24 @@
 import { AsyncStorage } from 'react-native';
-import {mergedStateAddCardToDeck, newDeck} from "./helpers";
+import {mergedStateAddCardToDeck, newDeck, dummyData} from "./helpers";
 
 export const DECKS_STORAGE_KEY = 'DECKS_STORAGE_KEY'
-
-//TODO remove this init that actually resets the storage
-export const initFirstData = () => {
-    return AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(initialData))
-}
 
 export const getDecksFromAsyncStorage = () => {
     return AsyncStorage.getItem(DECKS_STORAGE_KEY)
         .then((decks) => {
-        //console.log('SUCCESS')
-            if (decks) {
-                //console.log("return decks" + decks)
-                return new Promise((resolve,reject) => {resolve(JSON.parse(decks))})
+            if (decks === null) {
+                console.log("nothing came back from AsynStorage")
+                return setDummyData()
             } else {
-                //console.log("nothing came back from AsynStorage")
-                AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(initialData))
-                    .then(() => {
-                        return new Promise((resolve,reject) => {resolve(initialData)})
-                    })
+                console.log("return decks" + decks)
+                return JSON.parse(decks)
             }
         })
         .catch((error) => {
-        //console.log(error)
+            console.log(error)
         })
 }
+
 
 // export const getDecksFromStorage = async () => {
 //     console.log("start get decks from local Storage")
@@ -58,28 +50,17 @@ export function addCardToDeckAsyncStorage (title, card) {
         })
 }
 
-
-export const initialData = {
-    React: {
-        title: 'React',
-        questions: [
-            {
-                question: 'What is React?',
-                answer: 'A library for managing user interfaces'
-            },
-            {
-                question: 'Where do you make Ajax requests in React?',
-                answer: 'The componentDidMount lifecycle event'
-            }
-        ]
-    },
-    JavaScript: {
-        title: 'JavaScript',
-        questions: [
-            {
-                question: 'What is a closure?',
-                answer: 'The combination of a function and the lexical environment within which that function was declared.'
-            }
-        ]
-    },
+const setDummyData = () => {
+    AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(dummyData))
+        .then(() => {
+            return dummyData
+        })
 }
+
+
+// const setDummyData = () => {
+//     AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(dummyData))
+//         .then(() => {
+//             return new Promise((resolve) => {resolve(dummyData)})
+//         })
+// }
