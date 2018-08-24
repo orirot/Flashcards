@@ -39,7 +39,6 @@ export const handleGetDecks = () => {
                 }
             })
             .catch(e => console.log('error', e))
-            .then(() => this.setState(() => ({ready: true})))
     }
 }
 

@@ -12,6 +12,7 @@ import Deck from "./components/Deck";
 import Quiz from "./components/Quiz";
 import AddCard from "./components/AddCard";
 import middleware from './middleware'
+import {clearLocalNotification, setLocalNotification} from "./utils/notification";
 
 const store = createStore(reducer,middleware)
 
@@ -90,6 +91,11 @@ const MainNavigator = createStackNavigator({
 })
 
 export default class App extends React.Component {
+
+    componentDidMount() {
+        clearLocalNotification()
+        setLocalNotification()
+    }
 
     render() {
 

@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
-import {View, Text, StyleSheet, FlatList} from 'react-native'
+import {View, StyleSheet, FlatList} from 'react-native'
 import {connect} from 'react-redux'
-import {white} from "../utils/colors";
+import {white, gray} from "../utils/colors";
 import {handleGetDecks} from "../actions/index";
 import {AppLoading} from 'expo'
 import DeckListSingleDeck from './DeckListSingleDeck'
@@ -15,8 +15,10 @@ class DeckList extends Component {
     renderItem = (deck) => {
         const _deck = deck.item
         return (
-            <View key={_deck.title} style={[styles.container, styles.center]}>
-                <DeckListSingleDeck title={_deck.title} questions={_deck.questions} navigation={this.props.navigation}/>
+            <View>
+                <View key={_deck.title} style={[styles.container, styles.center]}>
+                    <DeckListSingleDeck title={_deck.title} questions={_deck.questions} navigation={this.props.navigation}/>
+                </View>
                 <View style={styles.line}/>
             </View>
         )
@@ -29,7 +31,6 @@ class DeckList extends Component {
             return (
 
                 <View style={styles.container}>
-                    <Text>LIST:</Text>
                     <FlatList
                         data={decks}
                         renderItem={this.renderItem}
@@ -62,8 +63,9 @@ const styles = StyleSheet.create({
         marginRight: 30,
     },
     line: {
-        borderBottomColor: 'black',
-        borderBottomWidth: 1,
+        borderWidth: 0.5,
+        borderColor: gray,
+        margin: 10,
     },
 })
 
