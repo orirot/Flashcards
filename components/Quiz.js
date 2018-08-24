@@ -8,11 +8,7 @@ import TextButton from "./TextButton";
 
 class Quiz extends Component {
 
-    state = {
-        currentQuestion: 0,
-        numberCorrectAns: 0,
-        showingQuestion: true
-    }
+    state = initialState
 
     flipCard = () => {
         this.setState(()=>({
@@ -22,7 +18,7 @@ class Quiz extends Component {
 
     answered = (correct)=>{
         const numCorrect = correct ? this.state.numberCorrectAns + 1 : this.state.numberCorrectAns
-        this.lastQuestion() ? this.finishQuiz(numCorrect) : this.nextQuestion(numCorrect)
+        this.lastQuestion() ? this.alertResult(numCorrect) : this.nextQuestion(numCorrect)
     }
 
     lastQuestion = () => {
@@ -43,15 +39,22 @@ class Quiz extends Component {
             `The ${this.props.title} quiz is finished`,
             msg,
             [
-                {text: 'OK', onPress: () => console.log('OK Pressed')},
+                {text: 'Go To Deck', onPress: () => {this.navigateTo('Deck', this.props.title)}},
+                {text: 'Restart Quiz', onPress: () => {this.restartQuiz()}},
             ],
             {cancelable: false}
         )
     }
 
-    finishQuiz = (numCorrect) => {
-        this.alertResult(numCorrect)
-        this.props.navigation.popToTop()
+    navigateTo = (target, title) => {
+        this.props.navigation.navigate(
+            target,
+            {title}
+        )
+    }
+
+    restartQuiz = () => {
+        this.setState(initialState)
     }
 
     outOf = () => {
@@ -122,6 +125,12 @@ function mapStateToProps(decks, ownProps) {
         questions: deck.questions,
         title
     }
+}
+
+const initialState = {
+    currentQuestion: 0,
+    numberCorrectAns: 0,
+    showingQuestion: true
 }
 
 export default connect(mapStateToProps)(Quiz)
