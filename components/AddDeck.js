@@ -21,6 +21,10 @@ class AddDeck extends Component {
         const title = this.state.input
         if (!this.titleAlreadyExists(title)) {
             this.saveDeck(title)
+            this.props.navigation.navigate(
+                'Deck',
+                {title}
+            )
         } else {
             this.titleExists(title)
         }
